@@ -43,7 +43,20 @@ const {
 // allí la recursión
 
 var objContains = function(obj, prop, value){
- 
+  for (var key in obj) {
+    var value = obj[key];
+
+    if (typeof value === 'obj') {
+        objContains(value, prop);
+        return true;
+    }
+
+    if (value === prop) {
+        return true;
+    }
+
+  } 
+return false;
 }
 
 
@@ -58,7 +71,22 @@ var objContains = function(obj, prop, value){
 // [Para más información del método: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/isArray]
 
 var countArray = function(array){
-  
+  if(array.length === 0) {
+    return 0;
+  }
+  if(array.length === 1) {
+    return array;
+  }
+  var sumatoria = 0;
+  for ( var i = 0; i < array.length; i++ ) {
+      if ( array[i] > 0 ) {
+          sumatoria = sumatoria + array[i];
+      }
+  }
+  if(Array.isArray(array[i])) {
+    countArray;
+  }
+  return sumatoria;
 }
 
 // ---------------------
@@ -78,7 +106,14 @@ var countArray = function(array){
 //    lista.size(); --> 3
 
 LinkedList.prototype.size = function(){
- 
+  let counter = 0
+  let node  = this.head
+
+  while (node) {
+    counter++;
+    node = node.next
+  }
+  return counter
 }
 
 
@@ -99,7 +134,6 @@ LinkedList.prototype.size = function(){
 //    sin antes tener cargada la posición 0 y 1.
 
 LinkedList.prototype.addInPos = function(pos, value){
-  
 }
 
 // EJERCICIO 5
@@ -110,8 +144,8 @@ LinkedList.prototype.addInPos = function(pos, value){
 //    Lista nueva luego de aplicar el reverse: Head --> 13 --> 10 --> 4 --> 1 --> null
 
 LinkedList.prototype.reverse = function(){
- 
-}
+};
+
 
 
 // ----------------------
@@ -141,7 +175,19 @@ LinkedList.prototype.reverse = function(){
 //    - mazoUserB = [6,9,10,3,6,4]
 
 var cardGame = function(mazoUserA, mazoUserB){
-
+  
+  if(mazoUserA[0] > mazoUserB[0]) {
+    mazoUserB.push(mazoUserA[0]);
+    return "A wins!";
+  }
+  if (mazoUserB[0] > mazoUserA[0]) {
+    mazoUserA.push(mazoUserB[0]);
+    return "B wins!";
+  }
+  if(mazoUserA[0] == mazoUserB[0]) {
+    
+    return "Game tie!";
+  }
 }
 
 // ---------------
@@ -164,7 +210,24 @@ var cardGame = function(mazoUserA, mazoUserB){
 //       5
 
 var generateBST = function(array){
- 
+  this.left = null,
+  this.right = null;
+}
+generateBST.prototype.insert = function(array){
+  var nodo = new BinarySearchTree(array);
+  for(var i = 0; i < array.length; i++){
+    if(this.right !== null) {
+  this.right.insert(array[i]);
+  } else {
+    this.right= nodo;
+  }
+  if(this.left !== null) {
+    this.left.insert(array[i]);
+  } else {
+    this.left = nodo;
+    }
+  }
+  return generateBST();
 }
 
 
@@ -185,8 +248,7 @@ var generateBST = function(array){
 
 
 var binarySearch = function (array, target) {
-
-  
+  return array.indexOf(target);
 }
 
 // EJERCICIO 9
@@ -199,7 +261,15 @@ var binarySearch = function (array, target) {
 
 
 var selectionSort = function(array) {
-  
+  for ( let j = 0; j < array.length; ++j ) {
+    let i = iMin = j;
+    for (++i; i < array.length; ++i ) {
+      ( array[i] < array[iMin]) && (iMin = i);
+    }
+    [array[j], array[iMin]] = [array[iMin], array[j] ];
+  }
+
+  return array;
 }
 
 // ----- Closures -----
@@ -217,8 +287,11 @@ var selectionSort = function(array) {
 //    sumaDiez(11); --> Devolverá 21 (Ya que 11 + 10 = 21)
 
 function closureSum(numFijo) {
- 
+  return function(suma) {
+    return numFijo + suma;
+  };
 }
+
 
 // -------------------
 
