@@ -43,20 +43,11 @@ const {
 // allí la recursión
 
 var objContains = function(obj, prop, value){
-  for (var key in obj) {
-    var value = obj[key];
-
-    if (typeof value === 'obj') {
-        objContains(value, prop);
-        return true;
-    }
-
-    if (value === prop) {
-        return true;
-    }
-
-  } 
+  if(obj.hasOwnProperty(prop) && value.prop === value){
+    return true;
+  } else { 
 return false;
+  }
 }
 
 
@@ -175,18 +166,39 @@ LinkedList.prototype.reverse = function(){
 //    - mazoUserB = [6,9,10,3,6,4]
 
 var cardGame = function(mazoUserA, mazoUserB){
+
+  let a;
+  let b;
   
-  if(mazoUserA[0] > mazoUserB[0]) {
-    mazoUserB.push(mazoUserA[0]);
-    return "A wins!";
+  while(mazoUserA.size() !== 0 && mazoUserB.size() !== 0){
+
+    a = mazoUserA.dequeue();
+    b = mazoUserB.dequeue();
+
+    if(a > b){
+
+        mazoUserA.enqueue(a);
+        mazoUserA.enqueue(b);
+
+    } else if(a < b){
+
+      mazoUserB.enqueue(b);
+      mazoUserB.enqueue(a);
+
+    }
   }
-  if (mazoUserB[0] > mazoUserA[0]) {
-    mazoUserA.push(mazoUserB[0]);
-    return "B wins!";
-  }
-  if(mazoUserA[0] == mazoUserB[0]) {
-    
-    return "Game tie!";
+
+  if(mazoUserA.size() === mazoUserB.size()){
+
+      return "Game tie!";
+
+  } else if(mazoUserA.size() === 0){
+
+      return "B wins!";
+
+  } else {
+
+      return "A wins!";
   }
 }
 
@@ -210,25 +222,23 @@ var cardGame = function(mazoUserA, mazoUserB){
 //       5
 
 var generateBST = function(array){
-  this.left = null,
-  this.right = null;
-}
-generateBST.prototype.insert = function(array){
-  var nodo = new BinarySearchTree(array);
-  for(var i = 0; i < array.length; i++){
-    if(this.right !== null) {
-  this.right.insert(array[i]);
+  for(var i = 0; i < array.length; i++) {
+    if (array[i] > this.array[i]){
+      if(this.right !== null) {
+    this.right.push(array[i]);
+    } else {
+      this.right= nodo;
+    }
   } else {
-    this.right= nodo;
-  }
-  if(this.left !== null) {
-    this.left.insert(array[i]);
-  } else {
-    this.left = nodo;
+    if(this.left !== null) {
+      this.left.push(array[i]);
+    } else {
+      this.left = nodo;
+      }
+    }
     }
   }
-  return generateBST();
-}
+
 
 
 // ---------------
